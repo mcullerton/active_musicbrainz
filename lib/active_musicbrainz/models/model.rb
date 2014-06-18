@@ -83,7 +83,8 @@ module ActiveMusicbrainz
       model :release do
         belongs_to  :release_group, foreign_key: :release_group
         belongs_to  :meta, class_name: 'ReleaseMeta', foreign_key: :id
-        has_many    :mediums, -> { order('medium.position') }, foreign_key: :release
+        #has_many    :mediums, -> { order('medium.position') }, foreign_key: :release
+        has_many    :mediums, foreign_key: :release
         has_many    :recordings, through: :mediums
         has_many    :tracks, through: :mediums
         belongs_to  :status, class_name: 'ReleaseStatus', foreign_key: :status
@@ -96,7 +97,8 @@ module ActiveMusicbrainz
 
       model :medium do
         belongs_to  :release, foreign_key: :release
-        has_many    :tracks, -> { order('track.position') }, foreign_key: :medium
+        #has_many    :tracks, -> { order('track.position') }, foreign_key: :medium
+        has_many    :tracks, foreign_key: :medium
         has_many    :recordings, through: :tracks
         belongs_to  :format, class_name: 'MediumFormat', foreign_key: :format
       end
